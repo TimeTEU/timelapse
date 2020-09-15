@@ -1,5 +1,5 @@
 pub struct Timelapse<'a> {
-    source: &'a mut dyn Iterator<Item=i32>,
+    source: &'a mut dyn Iterator<Item = i32>,
     target: i32,
     increment: i32,
     threshold: i32,
@@ -7,10 +7,12 @@ pub struct Timelapse<'a> {
 }
 
 impl Timelapse<'_> {
-    pub fn from_sorted_iterator(source: &mut dyn Iterator<Item=i32>,
-                                start: i32,
-                                increment: i32,
-                                threshold: i32) -> Timelapse {
+    pub fn from_sorted_iterator(
+        source: &mut dyn Iterator<Item = i32>,
+        start: i32,
+        increment: i32,
+        threshold: i32,
+    ) -> Timelapse {
         if threshold >= increment {
             panic!("Threshold must be lower than increment")
         }
@@ -29,7 +31,6 @@ impl Timelapse<'_> {
     }
 }
 
-
 impl Iterator for Timelapse<'_> {
     type Item = i32;
 
@@ -37,12 +38,12 @@ impl Iterator for Timelapse<'_> {
         loop {
             let current = match self.source.next() {
                 None => break,
-                Some(i) => i
+                Some(i) => i,
             };
 
             if let Some(prev) = self._prev {
                 if prev > current {
-                    panic!("seuence is not sorted");
+                    panic!("sequence is not sorted");
                 }
 
                 while prev > self.target && self.delta(prev) > self.threshold {
@@ -74,7 +75,6 @@ impl Iterator for Timelapse<'_> {
         }
     }
 }
-
 
 #[cfg(test)]
 mod test {
@@ -165,7 +165,6 @@ mod test {
         assert_eq!(None, tl.next());
     }
 
-
     #[test]
     fn test_case8() {
         let vector = vec![11, 28, 31, 32];
@@ -186,7 +185,6 @@ mod test {
         assert_eq!(72, tl.next().unwrap());
         assert_eq!(None, tl.next());
     }
-
 
     #[test]
     fn test_case10() {
