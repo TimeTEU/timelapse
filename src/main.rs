@@ -12,7 +12,8 @@ fn main() {
         let val: i32 = item[0..10].parse().expect("int");
         vec.push(val);
     }
-    let tl = Timelapse::from_sorted_vector(&vec, 1580599038, 60 * 60 * 24, 60 * 90);
+    let mut it = vec.into_iter();
+    let tl = Timelapse::from_sorted_iterator(&mut it, 1580599038, 60 * 60 * 24, 60 * 90);
 
     for (i, x) in tl.enumerate() {
         println!(
